@@ -1,31 +1,20 @@
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useRef, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import firestore from "@react-native-firebase/firestore";
 import { Todo } from "./types/types";
+import { createTodo, getTodos } from "./services/firebaseApi";
+import { useEffect } from "react";
+import firestore from '@react-native-firebase/firestore'
 
 export default function App() {
-  const todosRef = useRef(firestore().collection<Todo>("todos")).current;
-  const [todos, setTodos] = useState<Todo[]>([]);
-
   useEffect(() => {
-    const getTodos = async () => {
-      const todos = [];
-      firestore()
-        .collection("todos")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((documentSnapshot) => {
-            todos.push({
-              id: documentSnapshot.id,
-              ...documentSnapshot.data(),
-            });
-          });
-        });
-    };
+    const fetchTodos = async () => {
+      console.log(('start fetch'));
+       const todos = await getTodos()
+       console.log('Todos: ', todos);
+    }
 
-    getTodos();
-  }, []);
+    fetchTodos()
+  })
 
   const addTodoHandler = async () => {
     const todo: Todo = {
@@ -38,18 +27,22 @@ export default function App() {
 
     try {
       console.log("clicked");
-
-      const result = await firestore().collection<Todo>("todos").add(todo);
+      const result = await createTodo(todo);
       console.log(result);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const clearCache = () => {
+    firestore().disableNetwork()
+  }
+
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
       <Button title="add" onPress={addTodoHandler} />
+      <Button title="cache" onPress={clearCache} />
       <StatusBar style="auto" />
     </View>
   );
