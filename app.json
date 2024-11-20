@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -14,7 +13,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-info.plist",
+      "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "com.nimbleninja.hodimoapp"
     },
     "android": {
@@ -23,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.nimbleninja.hodimoapp"
+      "package": "com.nimbleninja.hodimoapptttt"
     },
     "web": {
       "favicon": "./assets/favicon.png"
