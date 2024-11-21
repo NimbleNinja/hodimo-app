@@ -14,7 +14,7 @@
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist",
-      "bundleIdentifier": "com.nimbleninja.hodimoapp"
+      "bundleIdentifier": "com.nimbleninja.hodimoapptttt"
     },
     "android": {
       "googleServicesFile": "./google-services.json",

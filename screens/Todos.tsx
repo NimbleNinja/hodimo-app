@@ -1,17 +1,22 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ScreenProps } from "../types/navigation";
 import { Todo } from "../types/types";
-import { getTodos } from "../services/firebaseApi";
+import { deleteTodoFromDB, getTodosFromDB } from "../services/firebaseApi";
 import TodoItem from "../components/TodoItem";
+import { addTodos, deleteTodo, todosSelectors } from "../store/todosSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 const Todos: React.FC<ScreenProps<"Todos">> = ({ navigation }) => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector(todosSelectors.selectAll);
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const todos = await getTodos();
-      setTodos((prev) => [...prev, ...todos]);
+      const todos = await getTodosFromDB();
+      console.log(todos);
+
+      dispatch(addTodos(todos));
     };
 
     fetchTodos();
@@ -39,12 +44,19 @@ const Todos: React.FC<ScreenProps<"Todos">> = ({ navigation }) => {
     navigation.navigate("Home");
   };
 
-  const deleteItemHandler = (id: string) => {
-    //
+  const deleteItemHandler = async (id: string) => {
+    try {
+      const removeResult = await deleteTodoFromDB(id);
+      console.log(removeResult);
+
+      dispatch(deleteTodo(id));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const editItemHandler = (todo: Todo) => {
-    //
+  const editItemHandler = (id: string) => {
+    navigation.navigate("Todo", { type: "update", id });
   };
 
   return (
