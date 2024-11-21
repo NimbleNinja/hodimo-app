@@ -1,17 +1,36 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "../screens/Home";
-import Todos from "../screens/Todos";
+import HomeScreen from "../screens/HomeScreen";
+import TodosScreen from "../screens/TodosScreen";
 import { RootStackParamList } from "../types/navigation";
-import Todo from "../screens/Todo";
+import TodoFormScreen from "../screens/TodoFormScreen";
+import CreateTodoButton from "../components/CreateTodoButton";
+import TodoInfoScreen from "../screens/TodoInfoScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigation = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Todos" component={Todos} />
-      <Stack.Screen name="Todo" component={Todo} />
+    <Stack.Navigator screenOptions={{ headerTitleAlign: "center" }}>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Todos"
+        component={TodosScreen}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <CreateTodoButton
+              pressHandler={() =>
+                navigation.navigate("Todo", { type: "create" })
+              }
+            />
+          ),
+        })}
+      />
+      <Stack.Screen name="Todo" component={TodoFormScreen} />
+      <Stack.Screen name="TodoInfo" component={TodoInfoScreen} />
     </Stack.Navigator>
   );
 };

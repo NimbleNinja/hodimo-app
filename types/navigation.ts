@@ -13,6 +13,9 @@ export type RootStackParamList = {
         type: "update";
         id: string;
       };
+  TodoInfo: {
+    id: string;
+  };
 };
 
 export type ScreenProps<T extends keyof RootStackParamList> =
