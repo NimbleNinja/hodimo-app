@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    textTransform: "capitalize",
     fontWeight: "500",
   },
   actions: {

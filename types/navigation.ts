@@ -1,8 +1,8 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Todo } from "./types";
 
 export type RootStackParamList = {
   Home: undefined;
+  Login: undefined;
   Todos: undefined;
   Todo:
     | {

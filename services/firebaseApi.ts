@@ -12,7 +12,7 @@ export const getTodosFromDB = async (
   let query = todosCollectionRef.limit(20);
 
   if (options?.filter) {
-    query = query.where("title", ">=", options.filter);
+    query = query.where("title", "==", options.filter);
   }
 
   if (options?.startAfter) {

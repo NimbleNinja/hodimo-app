@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import React, { useEffect } from "react";
 import { ScreenProps } from "../types/navigation";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -7,6 +7,7 @@ import { createTodoInDB, updateTodoInDB } from "../services/firebaseApi";
 import { Controller, useForm } from "react-hook-form";
 import { Todo } from "../types/types";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import StyledTextInput from "../components/StyledTextInput";
 
 const TodoFormScreen: React.FC<ScreenProps<"Todo">> = ({
   route: {
@@ -70,20 +71,12 @@ const TodoFormScreen: React.FC<ScreenProps<"Todo">> = ({
         rules={{ required: { value: true, message: "Title required" } }}
         render={({ field: { value, onChange }, fieldState: { error } }) => {
           return (
-            <View style={styles.inputContainer}>
-              <Text style={styles.required}>*</Text>
-              <TextInput
-                placeholder="Title"
-                style={[
-                  styles.input,
-                  {
-                    borderColor: error?.message ? "red" : "lightblue",
-                  },
-                ]}
-                value={value}
-                onChangeText={onChange}
-              />
-            </View>
+            <StyledTextInput
+              required
+              value={value}
+              onChangeText={onChange}
+              errMessage={error?.message}
+            />
           );
         }}
       />
@@ -93,20 +86,12 @@ const TodoFormScreen: React.FC<ScreenProps<"Todo">> = ({
         rules={{ required: { value: true, message: "Title required" } }}
         render={({ field: { value, onChange }, fieldState: { error } }) => {
           return (
-            <View style={styles.inputContainer}>
-              <Text style={styles.required}>*</Text>
-              <TextInput
-                placeholder="Description"
-                style={[
-                  styles.input,
-                  {
-                    borderColor: error?.message ? "red" : "lightblue",
-                  },
-                ]}
-                value={value}
-                onChangeText={onChange}
-              />
-            </View>
+            <StyledTextInput
+              required
+              value={value}
+              onChangeText={onChange}
+              errMessage={error?.message}
+            />
           );
         }}
       />
@@ -127,24 +112,6 @@ const styles = StyleSheet.create({
     padding: 8,
     flex: 1,
     gap: 8,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    gap: 4,
-  },
-  input: {
-    flex: 1,
-    padding: 8,
-    backgroundColor: "#fff",
-    borderWidth: 2,
-    borderColor: "lightblue",
-    borderRadius: 8,
-    fontWeight: "500",
-    fontSize: 18,
-  },
-  required: {
-    fontSize: 18,
-    color: "red",
   },
   button: {
     alignSelf: "flex-end",

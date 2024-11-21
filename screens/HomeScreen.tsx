@@ -4,13 +4,13 @@ import { ScreenProps } from "../types/navigation";
 
 const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
   const navigationHandler = () => {
-    navigation.navigate("Todos");
+    navigation.navigate("Login");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to TODO APP</Text>
-      <Button title="go to todos" onPress={navigationHandler} />
+      <Button title="Login" onPress={navigationHandler} />
     </View>
   );
 };
